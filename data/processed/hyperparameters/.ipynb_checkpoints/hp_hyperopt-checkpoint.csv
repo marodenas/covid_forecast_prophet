@@ -1,0 +1,2 @@
+,changepoint_prior_scale,changepoint_range,holidays_prior_scale,interval_width,n_changepoints,seasonality_mode,seasonality_prior_scale
+0,0.8185566449897834,0.899906292606709,25.88543615383399,0.9062683767638876,82.0,additive,11.764977494240538
