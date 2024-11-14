@@ -1,0 +1,141 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Cython
+*.c
+*.so
+
+# Virtual environment folders
+venv/
+.venv/
+env/
+.env/
+ENV/
+.ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Logs and local environment files
+*.log
+*.env
+*.ini
+*.local
+*.config
+*.envrc
+
+# macOS system files
+.DS_Store
+
+# IDE and editor-specific files
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Python egg files
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+*.egg-info/
+.installed.cfg
+*.egg-info/
+pip-wheel-metadata/
+*.manifest
+
+# PyInstaller
+# Usually these files are written by a Python script from a template
+*.spec
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Test and Coverage Results
+.tox/
+.cache/
+pytest_cache/
+.coverage
+coverage/
+
+# Flask and Django stuff:
+instance/
+.webassets-cache
+*.sqlite3
+db.sqlite3
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# Pytest cache
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SQLAlchemy
+*.db
+
+# Local configuration files
+*.env
+.envrc
+*.ini
+*.toml
+*.yaml
+*.yml
+
+# Jupyter Notebook files
+.ipynb_checkpoints/
+
+# Unit test / coverage reports
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+*.coverage.*
+
+# Pyre
+.pyre/

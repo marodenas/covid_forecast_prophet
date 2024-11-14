@@ -1,8 +1,11 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import plotly.express as px
+
 from pandas.plotting import autocorrelation_plot
 from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 
 
 def plot_time_series(
@@ -179,7 +182,7 @@ def plot_autocorrelation(
     time_column: str,
     value_column: str,
     title: str = 'Autocorrelation Plot',
-    figsize: tuple = (14, 7)
+    figsize: tuple = (16, 7)
 ) -> None:
     """Plots the autocorrelation of a time series column.
 
@@ -203,6 +206,8 @@ def plot_autocorrelation(
     """
     df_input[time_column] = pd.to_datetime(df_input[time_column])
     
+    df_input = df_input.groupby(time_column)[value_column].sum().reset_index()
+    
     # Set the figure size
     plt.figure(figsize=figsize)
     
@@ -214,9 +219,6 @@ def plot_autocorrelation(
     
     # Show the plot
     plt.show()
-
-# Example usage
-# plot_autocorrelation(df, 'Date', 'Confirmed')
 
 
 def plot_moving_std(
@@ -256,6 +258,7 @@ def plot_moving_std(
         This function does not return anything. It plots the moving standard deviation.
     """
     dfp = df_input.copy() 
+    dfp = dfp.groupby(time_column)[value_column].sum().reset_index()
     dfp.set_index(time_column, inplace=True)
     
     # Calculate moving standard deviation
@@ -311,3 +314,58 @@ def plot_boxplot(df, category_col, value_col, title='Box Plot', x_label=None, y_
     
     # Show the plot
     plt.show()
+
+def plot_forecasting( test, forecast, xlabel='Time', ylabel='Value', title='Forecasting Comparison'):
+    """
+    Plot train, test, and forecast values in a graph for comparison.
+
+    Args:
+    train (pd.Series): The training data series.
+    test (pd.Series): The testing data series.
+    forecast (pd.Series): The forecasted values series.
+    xlabel (str): Label for the x-axis (default: 'Time').
+    ylabel (str): Label for the y-axis (default: 'Value').
+    title (str): Title for the plot (default: 'Forecasting Comparison').
+    """
+    plt.figure(figsize=(10, 6))
+    sns.set_style('whitegrid')
+
+    # plt.plot(train, label='Train', color='blue')
+    plt.plot(test, label='True Value', color='green')
+    plt.plot(forecast, label='Predict', color='red')
+
+
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.legend()
+
+    plt.show()
+
+def plot_interactive_forecast(real_data, training_data, prediction_data,time_column,value_column):
+    """
+    Plots a time series forecast including real data, training data, and prediction data.
+
+    Args:
+        real_data (pd.DataFrame): DataFrame containing the real values with columns ['Date', 'Value'].
+        training_data (pd.DataFrame): DataFrame containing the training set values with columns ['Date', 'Value'].
+        prediction_data (pd.DataFrame): DataFrame containing the prediction values with columns ['Date', 'Value'].
+
+    Returns:
+        A Plotly graph object displaying the time series forecast.
+
+    """
+    # Combine the data into a single DataFrame
+    real_data['Series'] = 'Real Data'
+    training_data['Series'] = 'Training Data'
+    prediction_data['Series'] = 'Predictions'
+    
+    combined_data = pd.concat([real_data, training_data, prediction_data])
+    combined_data.columns = [time_column, value_column, 'Series']  # Ensure consistent column names
+
+    # Create the plot
+    fig = px.line(combined_data, x=time_column, y=value_column, color='Series',
+                  labels={"Value": "Measurements", "Series": "Type of Data"},
+                  title="Time Series Forecast Visualization")
+
+    return fig
